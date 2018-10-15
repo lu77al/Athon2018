@@ -1,0 +1,6 @@
+*.exe
+*.aws
+*.obj
+*.map
+*.tmp
+*.bat
