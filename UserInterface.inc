@@ -34,21 +34,30 @@ Pult:
 pu_11:	rjmp	pu_ex
 pu_10:
 
+	sbrs	r24,btRight
+	sbrs	r23,btLeft
+	std	Y+yLeftButTime,ZeroReg
+
 	cpi	r22,isSetVoltage
 	brsh	pu_12
 
 	sbrs	r24,btRight ; Правая ButPress
 	rjmp	pu_1
 
-;	sbrs	r23,btLeft ; с удерживанием левой
-;	rjmp	pu_2
-;	ldi	r21,240
-;	ldi	r20,6
-;	rjmp	pu_7
-;pu_2:			; Правая без удерживания левой
+	sbrs	r23,btLeft ; с удерживанием левой
+	rjmp	pu_2
+	ldi	r21,240
+	ldi	r20,isUin+1
+	rjmp	pu_7
+pu_2:			; Правая без удерживания левой
 	ldi	r21,60
-pu_6:	ldi	r20,4
+pu_6:	ldi	r20,isTab+1
 pu_7:	inc	r22
+
+	cpi	r22,isSpeed
+	brne	pu_40
+	ldi	r22,isTab
+pu_40:
 	cp	r22,r20
 	brlo	pu_3
 	ldi	r22,0
@@ -58,10 +67,7 @@ pu_1:
 	rjmp	pu_4
 	sbrs	r23,btRight ; с удерживанием правой
 	rjmp	pu_5
-	ldi	r21,240
-	ldi	r20,6
-	rjmp	pu_7
-/*	sbis	RELEY_PIN
+	sbis	RELEY_PIN
 	rjmp	pu_8
 	cbi	RELEY_PIN
 	rjmp	pu_9
@@ -72,13 +78,18 @@ pu_9:	stdi	yNoReleyCnt,86
 	cpse	r16,ZeroReg
 	ldi	r17,0
 	sts	LongClose,r17 
-	rjmp	pu_ex */
+	rjmp	pu_ex
 pu_5:			; Левая без удерживания правой
 	ldi	r21,0
 	rjmp	pu_6
 pu_4:		
 	sbrs	r25,btLeft ; Левая ButRep
 	rjmp	pu_13
+	ldd	r16,Y+yLeftButTime
+	inc	r16
+	std	Y+yLeftButTime,r16
+	cpi	r16,10
+	brlo	pu_13
 	set
 	bld	AFlags,afWaitKeyReleased
 	ldi	r22,isSetVoltage
@@ -125,11 +136,12 @@ pu_20:	rjmp	pu_ex
 pu_15:
 	sbrs	r24,btLeft
 	rjmp	pu_22
-	inc	r22
-	cpi	r22,isSetTHigh+1
-	brlo	pu_23
-	ldi	r22,isSetVoltage
-pu_23:	rjmp	pu_ex
+;	inc	r22
+;	cpi	r22,isSetTHigh+1
+;	brlo	pu_23
+;	ldi	r22,isSetVoltage
+;pu_23:
+	rjmp	pu_ex
 pu_22:
 	sbrs	r25,btLeft
 	rjmp	pu_14
@@ -204,6 +216,10 @@ ind_1:	ldd	r23,Y+yScrTimeCnt
 	brne	ind_3
 	ldi	r23,60  ;  Scroll event occured -> reset yScrTimeCnt to 4sec
 	inc	r24
+	cpi	r24,2
+	brne	ind_6
+	ldi	r24,3
+ind_6:
 	cpi	r24,4	;  scroll screens 0,1,2,3,0,1,...
 	brlo	ind_4
 	ldi	r24,0

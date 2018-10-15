@@ -93,6 +93,7 @@
 .equ	yChargeVoltage	= $31	; 0..150 -> 45.0..60.0V
 .equ	yTHeatOn	= $32	; 0..15 
 .equ	yTHeatOff	= $33	; 2..10
+.equ	yLeftButTime	= $34
 
 
 ;.equ	yTestKeyCnt	= $23

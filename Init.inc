@@ -29,12 +29,12 @@ ini_1:	st	Z+,YH
 
 	InitDallas
 
-	ldi_w	r17,r16,$8600 //8748
+	ldi_w	r17,r16,$856B //8748
 	ldi	XL,ADCKoef+2
 	st	X+,r16
 	st	X+,r17
 
-	ldi_w	r17,r16,$7D53 //7E86
+	ldi_w	r17,r16,$7CC7 //7E86
 	ldi	XL,ADCKoef+4
 	st	X+,r16
 	st	X+,r17
