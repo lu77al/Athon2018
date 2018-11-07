@@ -1,0 +1,2 @@
+@ECHO OFF
+"C:\Program Files\Atmel\AVR Tools\AvrAssembler2\avrasm2.exe" -S "D:\GoogleDisk\Work\StepDown\KSV40\Ch_op_24.12.2016_24_35_\labels.tmp" -fI -W+ie -C V2E -o "D:\GoogleDisk\Work\StepDown\KSV40\Ch_op_24.12.2016_24_35_\Ch_op_2016.hex" -d "D:\GoogleDisk\Work\StepDown\KSV40\Ch_op_24.12.2016_24_35_\Ch_op_2016.obj" -e "D:\GoogleDisk\Work\StepDown\KSV40\Ch_op_24.12.2016_24_35_\Ch_op_2016.eep" -m "D:\GoogleDisk\Work\StepDown\KSV40\Ch_op_24.12.2016_24_35_\Ch_op_2016.map" "D:\GoogleDisk\Work\StepDown\KSV40\Ch_op_24.12.2016_24_35_\Ch_op_2016.asm"
